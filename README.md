@@ -19,5 +19,5 @@ A simple web-based Task Board (Kanban) application built with Python and basic w
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/yourusername/task-board.git
+   git clone https://github.com/yourusername/taskboard.git
    cd task-board
