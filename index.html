@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Board</title>
+    <link rel="stylesheet" href="{% static 'board/style.css' %}">
+</head>
+<body>
+    <h1>Task Board</h1>
+
+    <form action="{% url 'add_task' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="New Task" required>
+        <button type="submit">Add</button>
+    </form>
+
+    <div class="board">
+        {% for col in ['todo', 'inprogress', 'done'] %}
+        <div class="column" data-status="{{ col }}">
+            <h2>{{ col|title }}</h2>
+            {% for task in tasks %}
+                {% if task.status == col %}
+                    <div class="task" draggable="true" data-id="{{ task.id }}">
+                        {{ task.title }}
+                        <form method="POST" action="{% url 'delete_task' task.id %}">
+                            {% csrf_token %}
+                            <button class="delete">X</button>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="{% static 'board/script.js' %}"></script>
+</body>
+</html>
